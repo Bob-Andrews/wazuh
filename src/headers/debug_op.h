@@ -22,6 +22,7 @@
 #define __attribute__(x)
 #endif
 
+#include <external/cJSON/cJSON.h>
 /* For internal logs */
 #ifndef LOGFILE
 #ifndef WIN32
@@ -51,6 +52,7 @@ void mterror_exit(const char *tag, const char *msg, ...) __attribute__((format(p
 
 /* Function to read the logging format configuration */
 void os_logging_config(void);
+cJSON *getLoggingConfig(void);
 
 /* Use these three functions to set when you
  * enter in debug, chroot or daemon mode
