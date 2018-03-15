@@ -93,6 +93,14 @@ Install()
           MAKEBIN=/opt/freeware/bin/gmake
     fi
 
+    # On Centos5 we need to disable syscollector compilation
+    OS_VERSION_FOR_SYSC="${DIST_NAME} ${DIST_VER}"
+    SYSC_FLAG=""
+
+    if [ "X${OS_VERSION_FOR_SYSC}" = "Xrhel 5" ]; then
+        SYSC_FLAG="DISABLE_SYSC=true"
+    fi
+
 
     # Makefile
     echo " - ${runningmake}"
@@ -104,7 +112,7 @@ Install()
     if [ "X${USER_BINARYINSTALL}" = "X" ]; then
         # Add DATABASE=pgsql or DATABASE=mysql to add support for database
         # alert entry
-        ${MAKEBIN} PREFIX=${INSTALLDIR} TARGET=${INSTYPE} build
+        ${MAKEBIN} PREFIX=${INSTALLDIR} TARGET=${INSTYPE} ${SYSC_FLAG} build
         if [ $? != 0 ]; then
             cd ../
             catError "0x5-build"
