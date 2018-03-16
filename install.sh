@@ -93,11 +93,11 @@ Install()
           MAKEBIN=/opt/freeware/bin/gmake
     fi
 
-    # On Centos5 we need to disable syscollector compilation
-    OS_VERSION_FOR_SYSC="${DIST_NAME} ${DIST_VER}"
+    # On CentOS <= 5 we need to disable syscollector compilation
+    OS_VERSION_FOR_SYSC="${DIST_NAME}"
     SYSC_FLAG=""
-
-    if [ "X${OS_VERSION_FOR_SYSC}" = "Xrhel 5" ]; then
+ 
+    if ([ "X${OS_VERSION_FOR_SYSC}" = "Xrhel" ] || [ "X${OS_VERSION_FOR_SYSC}" = "Xcentos" ] || [ "X${OS_VERSION_FOR_SYSC}" = "XCentOS" ]) && [ ${DIST_VER} -le 5 ]; then
         SYSC_FLAG="DISABLE_SYSC=true"
     fi
 
